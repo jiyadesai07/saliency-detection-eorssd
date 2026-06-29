@@ -1,0 +1,31 @@
+# Default training configuration for EORSSD saliency detection.
+# Override any of these from the CLI, e.g.:
+#   python scripts/train.py --config configs/default.yaml --model attention_unet
+
+data:
+  root: "EORSSD-Dataset/EORSSD"   # expects train-images/ train-labels/ test-images/ test-labels/
+  img_size: 256
+  val_fraction: 0.1               # carved out of train split for model selection
+  num_workers: 4
+
+train:
+  model: "unet"                  # one of: cnn, unet, vgg_unet, resnet_unet, attention_unet
+  pretrained: true                # use ImageNet-pretrained encoder where applicable
+  epochs: 60
+  batch_size: 16
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  optimizer: "adamw"
+  scheduler: "cosine"
+  amp: true                       # mixed precision (GPU only)
+  early_stop_patience: 10
+  seed: 42
+
+loss:
+  bce_weight: 1.0
+  iou_weight: 1.0
+  ssim_weight: 1.0
+
+output:
+  checkpoint_dir: "checkpoints"
+  log_dir: "runs"

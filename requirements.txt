@@ -1,0 +1,10 @@
+torch>=2.1
+torchvision>=0.16
+numpy
+pillow
+opencv-python-headless
+albumentations>=1.3
+scikit-learn
+tqdm
+matplotlib
+pyyaml
